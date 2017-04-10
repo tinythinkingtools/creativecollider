@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,gBAAgB;EAChB,wBAAwB;EACxB,kCAAkC;EAClC,UAAU;EACV,WAAW,EACZ","file":"styles.css","sourcesContent":["body {\n  color: #333333;\n  font-size: 16px;\n  line-height: 1.42857143;\n  font-family: 'Roboto', sans-serif;\n  margin: 0;\n  padding: 0;\n}"]}
