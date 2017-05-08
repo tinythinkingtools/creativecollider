@@ -55,8 +55,12 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "elemental": "^0.6.1",
+    "lodash": "^4.17.4",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "react-router": "^2.6.1"
+    "react-player": "^0.17.2",
+    "react-router": "^2.6.1",
+    "tabletop": "^1.5.2"
   }
 }

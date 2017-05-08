@@ -24,7 +24,7 @@ gulp.task('styles', () => {
 			browsers: ['last 2 versions', 'ie 8', 'ie 9', 'ie 10', 'ie 11']
 		}), plugins.cssMqpacker
 	];
-	const stream = gulp.src(`${ENV.srcClient}/styles/styles.scss`)
+	return gulp.src(`${ENV.srcClient}/styles/styles.scss`)
 		.pipe(plugins.plumber({
 			errorHandler: plugins.notify.onError("Error: <%= error.message %>")
 		}))
@@ -32,10 +32,9 @@ gulp.task('styles', () => {
 		.pipe(plugins.sass())
 		.pipe(plugins.postcss(processors))
 		.pipe(plugins.if(process.env.NODE_ENV !== 'production', plugins.sourcemaps.write('.')))
-		.pipe(gulp.dest(`${ENV.distClient}/assets/css/`))
-		.pipe(plugins.livereload());
+		.pipe(gulp.dest(`${ENV.distClient}/assets/css/`));
+		//.pipe(plugins.livereload());
 
-	return stream;
 });
 
 /*Build scripts */
@@ -76,10 +75,10 @@ gulp.task('browserify', () => {
 /*WATCH */
 
 gulp.task('watch', () => {
-	plugins.livereload.listen();
+	// plugins.livereload.listen();
 	gulp.watch([`${ENV.srcClient}/**/*.js`, `${ENV.srcClient}/*.js`], ['browserify']);
 	gulp.watch([`${ENV.srcClient}/**/*.jsx`, `${ENV.srcClient}/*.jsx`], ['browserify']);
-	gulp.watch(`${ENV.srcClient}/styles/*.scss`, ['styles']);
+	// gulp.watch(`${ENV.srcClient}/styles/*.scss`, ['styles']);
 });
 
 
