@@ -16,6 +16,7 @@ const Live = React.createClass({
 			slideInterval: null,
 			prevSlideNumber: 0,
 			intervalTime: 4000,
+			choosenValue: [],
 			firstValue: {
 				value: '',
 				type: ''
@@ -34,9 +35,7 @@ const Live = React.createClass({
 			callback: (data, tabletop) => {
 				// console.log(data);
 				// if success => write spreadsheetId and activate GO button
-				
-				
-				
+			
 				this.setState({
 					spreadsheetId,
 					ready: true,
@@ -81,7 +80,6 @@ const Live = React.createClass({
 		let historyCount = this.state.historyCount;
 		let history = this.state.history;
 		
-		
 		if (next) {
 			historyCount = historyCount + 1;
 		} else{
@@ -93,12 +91,10 @@ const Live = React.createClass({
 		}
 		
 		// console.log(Object.keys(history).length, historyCount);
-		const firstValue = history[historyCount-1].firstValue;
-		const secondValue = history[historyCount-1].secondValue;
+		const choosenValue = history[historyCount-1];
 		
 		this.setState({
-			firstValue,
-			secondValue,
+			choosenValue,
 			historyCount
 		});
 	
@@ -131,61 +127,84 @@ const Live = React.createClass({
 		const sheetName = Object.keys(dataCollider)[0];
 		const sheet = dataCollider[sheetName];
 		
-		// let choose columns
-		const firstColumnChoose = _.sample(sheet.columnNames);
-		let secondColumnChoose = _.sample(sheet.columnNames);
+		const sheetsCount = Object.keys(sheet.columnNames).length;
 		
-		// if columns equals, try more
-		if (secondColumnChoose === firstColumnChoose) {
-			while(firstColumnChoose === secondColumnChoose) {
-				// console.log('rerender', firstColumnChoose, secondColumnChoose);
-				secondColumnChoose = _.sample(sheet.columnNames);
-			}
-		}
+		// new main array with values
+		const choosenValue = [];
 		
-		// console.log(firstColumnChoose, secondColumnChoose);
 		// create object who contain all values for each column
-		const values = {
-			'first': [],
-			'second': []
-		}
+		let values = [];
 		
-		sheet.elements.forEach((obj, index) => {
-			if(!_.has(values.first, obj[firstColumnChoose]) && obj[firstColumnChoose]){
-				values.first.push(obj[firstColumnChoose]);
+		if (sheetsCount === 1) {
+			
+			// let choose columns
+			let firstColumnChoose = _.sample(sheet.columnNames);
+			
+			// console.log(firstColumnChoose, secondColumnChoose);
+			
+
+			sheet.elements.forEach((obj, index) => {
+				if(!_.has(values.first, obj[firstColumnChoose]) && obj[firstColumnChoose]){
+					values.push(obj[firstColumnChoose]);
+				}
+			});
+			const firstValue = {
+				value: _.sample(values),
+				columnName: firstColumnChoose
+			};
+			
+			firstValue.type = this.checkType(firstValue.value);
+			choosenValue.push(firstValue);
+			
+			let secondValue = {
+				value: _.sample(values),
+				columnName: firstColumnChoose
+			};
+
+			// if columns equals, try more
+			if (secondValue === firstValue) {
+				while(secondValue === firstValue) {
+					secondValue = _.sample(values);
+				}
 			}
 			
-			if(!_.has(values.second, obj[secondColumnChoose]) && obj[secondColumnChoose]){
-				values.second.push(obj[secondColumnChoose]);
-			}
-		});
+			secondValue.type = this.checkType(secondValue.value);
+			choosenValue.push(secondValue);
+			
+ 		} else {
+			let columnNames = _.shuffle(sheet.columnNames);
+			columnNames.forEach((nameColumn, index) => {
+				values = [];
+				sheet.elements.forEach((obj, index) => {
+					if(!_.has(values.first, obj[nameColumn]) && obj[nameColumn]){
+						values.push(obj[nameColumn]);
+					}
+				});
+				
+				let tempValue = {
+					value: _.sample(values),
+					columnName: nameColumn
+				};
+				
+				tempValue.type = this.checkType(tempValue.value);
+				choosenValue.push(tempValue);
+				
+			})
+ 		}
 		
-		const firstValue = {
-			value: _.sample(values.first)
-		};
 		
-		firstValue.type = this.checkType(firstValue.value);
-		
-		const secondValue = {
-			value: _.sample(values.second)
-		};
-		
-		secondValue.type = this.checkType(secondValue.value);
 		
 		// put values in history  
 		let history = this.state.history;
 		let historyCount = Object.keys(history).length;
-		history[historyCount] = {
-			firstValue,
-			secondValue
-		};
+		history[historyCount] = choosenValue;
+		
 		historyCount = Object.keys(history).length;
+		
 		// console.log('historyCount new', historyCount, history);
-
 		
 		this.setState({
-			firstValue,
-			secondValue,
+			choosenValue,
 			history,
 			historyCount
 		});
@@ -221,7 +240,9 @@ const Live = React.createClass({
 	renderType(obj){
 		if (obj.type === 'video'){
 			return (
-				<ReactPlayer width="100%" height="100%" url={obj.value} controls={true} />
+				<div className="live-content-table">
+					<ReactPlayer width="100%" height="100%" url={obj.value} controls={true} />
+				</div>
 			)
 		}
 		
@@ -232,19 +253,27 @@ const Live = React.createClass({
 		}
 		
 		return (
-			<div className="live-content-text">{obj.value}</div>
+			<div className="live-content-table">
+				<div className="live-content-text">{obj.value}</div>
+			</div>
 		);
 		
 	},
 	renderSlides(){
+		
+		const renderDOM = [];
+		this.state.choosenValue.forEach((obj, index) => {
+			renderDOM.push(
+				<div key={index} className={ "live-content " + obj.type}>
+					{this.renderType(obj)}
+					<div className="live-columnName">{obj.columnName}</div>
+				</div>
+			);
+		})
+		
 		return(
 			<div className="live-wrapper">
-				<div className={ "live-left live-content " + this.state.firstValue.type}>
-					{this.renderType(this.state.firstValue)}
-				</div>
-				<div className={ "live-right live-content " + this.state.secondValue.type}>
-					{this.renderType(this.state.secondValue)}
-				</div>
+				{renderDOM}
 			</div>
 		)
 	},

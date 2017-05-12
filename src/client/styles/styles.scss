@@ -19,6 +19,10 @@ body {
   min-height: 550px;
   position: relative;
   text-align: center;
+	@media (max-width: 767px) {
+		min-height: 1px;
+		padding: 10px 0;
+	}
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -30,12 +34,13 @@ body {
 }
 .site-wrapper-inner {
   display: table-cell;
-  vertical-align: top;
+  vertical-align: middle;
 }
 .cover-container {
   margin-right: auto;
   margin-left: auto;
 }
+
 
 @media (min-width: 768px) {
 
@@ -108,15 +113,20 @@ padding-top: 50px;
     width: 1170px;
     margin: 0 auto;
     padding: 0 16px;
+		@media (max-width: 1169px) {
+			width: 100%;
+			padding: 0;
+		}
   }
   &-wrapper{
-    background-image: url('../img/ex.svg');
+/*     background-image: url('../img/ex.svg');
     background-repeat: no-repeat;
     background-size: 76px;
-    background-position: center;
+    background-position: center; */
   }
   &-wrapper, &-controls{
     position: relative;
+		text-align: center;
     &:before, &:after{
       display: table;
       content: " ";
@@ -125,22 +135,12 @@ padding-top: 50px;
       clear: both;
     }
   }
-  &-left {
-    width: 40%;
-    float: left;
-    min-height: 300px;
-    border: 5px solid #000000;
-  }
-  &-right {
-    width: 40%;
-    float: right;
-    min-height: 300px;
-    border: 5px solid #000000;
-  }
   
   &-controls{
     padding-top: 64px;
-    text-align: center;
+		@media (max-width: 767px) {
+			padding-top: 20px;
+		}
   }
   &-controls-item{
     display: inline-block;
@@ -173,27 +173,41 @@ padding-top: 50px;
     &.next{
       background-image: url('../img/next.svg');
     }
+		@media (max-width: 767px) {
+			width: 50px;
+			height: 50px;
+		}
   }
+	&-columnName{
+		position: absolute;
+		top: -29px;
+		left: 0;
+		font-weight: bold;
+		width: 100%;
+	}
   &-content{
+		width: 40%;
+		margin: 20px;
+		display: inline-block;
+    min-height: 300px;
+		vertical-align: top;
+    border: 5px solid #000000;
+		position: relative;
+		@media (max-width: 767px) {
+			min-height: 120px;
+			margin: 20px 10px;
+		}
+		
     &.image{
       border: 0;
       position: relative;
     }
     &.text{
       background: #ffffff;
-      display: table;
     }
     &.video{
       background: #ffffff;
       position: relative;
-			display: block;
-			height: 0;
-			padding: 0;
-			//padding-bottom: 56.25%;
-			overflow: hidden;
-			height: 100%;
-			display: table;
-			position: relative;
 			iframe{
 				position: absolute;
 				top: 0;
@@ -219,11 +233,27 @@ padding-top: 50px;
       display: inline-block;
       padding: 0;
     }
+		&-table{
+			display: table;
+			width: 100%;
+			min-height: 300px;
+			overflow: hidden;
+			position: relative;
+			height: 100%;
+			padding: 0;
+			@media (max-width: 767px) {
+				min-height: 120px;
+			}
+		}
     &-text{
       display: table-cell;
       vertical-align: middle;
       font-size: 25px;
       color: #333333;
+			@media (max-width: 767px) {
+				font-size: 18px;
+				padding: 4px;
+			}
     }
   }
 }

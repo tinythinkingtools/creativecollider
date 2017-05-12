@@ -112763,6 +112763,7 @@ var Live = _react2.default.createClass({
 			slideInterval: null,
 			prevSlideNumber: 0,
 			intervalTime: 4000,
+			choosenValue: [],
 			firstValue: {
 				value: '',
 				type: ''
@@ -112783,7 +112784,6 @@ var Live = _react2.default.createClass({
 			callback: function callback(data, tabletop) {
 				// console.log(data);
 				// if success => write spreadsheetId and activate GO button
-
 
 				_this.setState({
 					spreadsheetId: spreadsheetId,
@@ -112847,12 +112847,10 @@ var Live = _react2.default.createClass({
 		}
 
 		// console.log(Object.keys(history).length, historyCount);
-		var firstValue = history[historyCount - 1].firstValue;
-		var secondValue = history[historyCount - 1].secondValue;
+		var choosenValue = history[historyCount - 1];
 
 		this.setState({
-			firstValue: firstValue,
-			secondValue: secondValue,
+			choosenValue: choosenValue,
 			historyCount: historyCount
 		});
 	},
@@ -112876,66 +112874,87 @@ var Live = _react2.default.createClass({
 		}
 	},
 	renderNextValues: function renderNextValues(data) {
+		var _this2 = this;
+
 		var dataCollider = data ? data : this.state.dataCollider;
 		// work only with first sheet
 		var sheetName = Object.keys(dataCollider)[0];
 		var sheet = dataCollider[sheetName];
 
-		// let choose columns
-		var firstColumnChoose = _lodash2.default.sample(sheet.columnNames);
-		var secondColumnChoose = _lodash2.default.sample(sheet.columnNames);
+		var sheetsCount = Object.keys(sheet.columnNames).length;
 
-		// if columns equals, try more
-		if (secondColumnChoose === firstColumnChoose) {
-			while (firstColumnChoose === secondColumnChoose) {
-				// console.log('rerender', firstColumnChoose, secondColumnChoose);
-				secondColumnChoose = _lodash2.default.sample(sheet.columnNames);
-			}
-		}
+		// new main array with values
+		var choosenValue = [];
 
-		// console.log(firstColumnChoose, secondColumnChoose);
 		// create object who contain all values for each column
-		var values = {
-			'first': [],
-			'second': []
-		};
+		var values = [];
 
-		sheet.elements.forEach(function (obj, index) {
-			if (!_lodash2.default.has(values.first, obj[firstColumnChoose]) && obj[firstColumnChoose]) {
-				values.first.push(obj[firstColumnChoose]);
+		if (sheetsCount === 1) {
+
+			// let choose columns
+			var firstColumnChoose = _lodash2.default.sample(sheet.columnNames);
+
+			// console.log(firstColumnChoose, secondColumnChoose);
+
+
+			sheet.elements.forEach(function (obj, index) {
+				if (!_lodash2.default.has(values.first, obj[firstColumnChoose]) && obj[firstColumnChoose]) {
+					values.push(obj[firstColumnChoose]);
+				}
+			});
+			var firstValue = {
+				value: _lodash2.default.sample(values),
+				columnName: firstColumnChoose
+			};
+
+			firstValue.type = this.checkType(firstValue.value);
+			choosenValue.push(firstValue);
+
+			var secondValue = {
+				value: _lodash2.default.sample(values),
+				columnName: firstColumnChoose
+			};
+
+			// if columns equals, try more
+			if (secondValue === firstValue) {
+				while (secondValue === firstValue) {
+					secondValue = _lodash2.default.sample(values);
+				}
 			}
 
-			if (!_lodash2.default.has(values.second, obj[secondColumnChoose]) && obj[secondColumnChoose]) {
-				values.second.push(obj[secondColumnChoose]);
-			}
-		});
+			secondValue.type = this.checkType(secondValue.value);
+			choosenValue.push(secondValue);
+		} else {
+			var columnNames = _lodash2.default.shuffle(sheet.columnNames);
+			columnNames.forEach(function (nameColumn, index) {
+				values = [];
+				sheet.elements.forEach(function (obj, index) {
+					if (!_lodash2.default.has(values.first, obj[nameColumn]) && obj[nameColumn]) {
+						values.push(obj[nameColumn]);
+					}
+				});
 
-		var firstValue = {
-			value: _lodash2.default.sample(values.first)
-		};
+				var tempValue = {
+					value: _lodash2.default.sample(values),
+					columnName: nameColumn
+				};
 
-		firstValue.type = this.checkType(firstValue.value);
-
-		var secondValue = {
-			value: _lodash2.default.sample(values.second)
-		};
-
-		secondValue.type = this.checkType(secondValue.value);
+				tempValue.type = _this2.checkType(tempValue.value);
+				choosenValue.push(tempValue);
+			});
+		}
 
 		// put values in history  
 		var history = this.state.history;
 		var historyCount = Object.keys(history).length;
-		history[historyCount] = {
-			firstValue: firstValue,
-			secondValue: secondValue
-		};
+		history[historyCount] = choosenValue;
+
 		historyCount = Object.keys(history).length;
+
 		// console.log('historyCount new', historyCount, history);
 
-
 		this.setState({
-			firstValue: firstValue,
-			secondValue: secondValue,
+			choosenValue: choosenValue,
 			history: history,
 			historyCount: historyCount
 		});
@@ -112967,7 +112986,11 @@ var Live = _react2.default.createClass({
 	},
 	renderType: function renderType(obj) {
 		if (obj.type === 'video') {
-			return _react2.default.createElement(_reactPlayer2.default, { width: '100%', height: '100%', url: obj.value, controls: true });
+			return _react2.default.createElement(
+				'div',
+				{ className: 'live-content-table' },
+				_react2.default.createElement(_reactPlayer2.default, { width: '100%', height: '100%', url: obj.value, controls: true })
+			);
 		}
 
 		if (obj.type === 'image') {
@@ -112976,28 +112999,39 @@ var Live = _react2.default.createClass({
 
 		return _react2.default.createElement(
 			'div',
-			{ className: 'live-content-text' },
-			obj.value
-		);
-	},
-	renderSlides: function renderSlides() {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'live-wrapper' },
+			{ className: 'live-content-table' },
 			_react2.default.createElement(
 				'div',
-				{ className: "live-left live-content " + this.state.firstValue.type },
-				this.renderType(this.state.firstValue)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: "live-right live-content " + this.state.secondValue.type },
-				this.renderType(this.state.secondValue)
+				{ className: 'live-content-text' },
+				obj.value
 			)
 		);
 	},
+	renderSlides: function renderSlides() {
+		var _this3 = this;
+
+		var renderDOM = [];
+		this.state.choosenValue.forEach(function (obj, index) {
+			renderDOM.push(_react2.default.createElement(
+				'div',
+				{ key: index, className: "live-content " + obj.type },
+				_this3.renderType(obj),
+				_react2.default.createElement(
+					'div',
+					{ className: 'live-columnName' },
+					obj.columnName
+				)
+			));
+		});
+
+		return _react2.default.createElement(
+			'div',
+			{ className: 'live-wrapper' },
+			renderDOM
+		);
+	},
 	readyApp: function readyApp() {
-		var _this2 = this;
+		var _this4 = this;
 
 		return _react2.default.createElement(
 			'div',
@@ -113007,7 +113041,7 @@ var Live = _react2.default.createClass({
 				'div',
 				{ className: 'live-controls' },
 				_react2.default.createElement('div', { className: 'live-controls-item prev', onClick: this.state.historyCount > 1 ? function () {
-						return _this2.moveSlides(false);
+						return _this4.moveSlides(false);
 					} : false, style: this.state.historyCount > 1 ? { 'opacity': 1 } : { 'opacity': 0, 'cursor': 'default' } }),
 				_react2.default.createElement('div', { className: this.state.play ? "live-controls-item pause" : "live-controls-item play", onClick: this.playPauseActions }),
 				_react2.default.createElement('div', { className: 'live-controls-item next', onClick: this.nextSlide })
