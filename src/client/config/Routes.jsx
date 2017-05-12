@@ -7,7 +7,7 @@ import Live from '../components/pages/Live';
 
 const r = () => (
   <Router history={browserHistory}>
-    <Route path="/" >
+    <Route path="creativecollider" >
       <IndexRoute component={Home} />
       <Route path="init" component={Init} />
       <Route path="live/:spreadsheetId" component={Live} />

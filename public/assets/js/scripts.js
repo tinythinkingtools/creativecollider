@@ -113096,7 +113096,7 @@ var r = function r() {
     { history: _reactRouter.browserHistory },
     _react2.default.createElement(
       _reactRouter.Route,
-      { path: '/' },
+      { path: 'creativecollider' },
       _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: 'init', component: _Init2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: 'live/:spreadsheetId', component: _Live2.default })
