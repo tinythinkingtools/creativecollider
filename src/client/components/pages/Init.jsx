@@ -68,7 +68,7 @@ const Init = React.createClass({
 							{ this.state.validateError ? <span className="help-block">Please check your url</span> : '' }
 						</div>
 						<div className="pd-16">
-							<Link to={ this.state.spreadsheetId ? `/live/${this.state.spreadsheetId}` : '/' } className="btn btn-lg btn-success" disabled={ this.state.spreadsheetId ? false : true }>GO</Link>
+							<Link to={ this.state.spreadsheetId ? `/creativecollider/live/${this.state.spreadsheetId}` : '/creativecollider' } className="btn btn-lg btn-success" disabled={ this.state.spreadsheetId ? false : true }>GO</Link>
 						</div>
 						<p>
 							The first step is publishing your Google Sheet (Without this, we can not access it). We will treat every column (up to 4 of them, ignoring the rest) as a separate item type. We will also ignore the first row, assuming it’s names. We will present you with random mix & matches of various types. If there is just one column - we will mix and match inside it, two items at a time. Take a look at the example spreadsheet.

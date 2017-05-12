@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 const Home = React.createClass({
 	componentDidMount() {
@@ -16,7 +15,7 @@ const Home = React.createClass({
 							<iframe className="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameBorder="0" ></iframe>
 						</div>
 						<div className="pd-16">
-							<Link to="/init" className="btn btn-lg btn-success">START</Link>
+							<a href="/creativecollider/init" className="btn btn-lg btn-success">START</a>
 						</div>
 					</div>
 				</div>
