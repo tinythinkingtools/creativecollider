@@ -197,7 +197,12 @@ padding-top: 50px;
 			min-height: 120px;
 			margin: 20px 10px;
 		}
-		
+		&:nth-child(1):nth-last-child(2),
+		&:nth-child(2):nth-last-child(1) {
+			@media (max-width: 767px) {
+				width: 90%;
+			}
+		}
     &.image{
       border: 0;
       position: relative;

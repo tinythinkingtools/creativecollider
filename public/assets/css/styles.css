@@ -203,6 +203,9 @@ body {
     min-height: 120px;
     margin: 20px 10px; }
 
+  .live-content:nth-child(1):nth-last-child(2), .live-content:nth-child(2):nth-last-child(1) {
+    width: 90%; }
+
   .live-content-table {
     min-height: 120px; }
 
