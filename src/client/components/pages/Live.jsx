@@ -55,7 +55,7 @@ const Live = React.createClass({
 	
 	loaderApp(){
 		return (<div className="cover-container">
-							<img className="header-logo" src="/assets/img/logo.svg" />
+							<img className="header-logo" src="/creativecollider/public/assets/img/logo.svg" />
 							<h1 className="cover-heading">Creative Collider - loading...</h1>
 						</div>);
 	},
