@@ -106,8 +106,8 @@ body {
 .live-controls-item {
   display: inline-block;
   vertical-align: middle;
-  width: 76px;
-  height: 76px;
+  width: 45px;
+  height: 45px;
   background-image: url("../img/prev.svg");
   background-repeat: no-repeat;
   background-size: contain;
@@ -139,7 +139,7 @@ body {
   width: 40%;
   margin: 20px;
   display: inline-block;
-  min-height: 300px;
+  min-height: 185px;
   vertical-align: top;
   border: 5px solid #000000;
   position: relative; }
@@ -159,7 +159,7 @@ body {
       width: 100%;
       height: 100%;
       border: 0; }
-  .live-content-img {
+  .live-content-img img {
     border: 5px solid #000000;
     height: auto;
     width: auto;
@@ -173,10 +173,16 @@ body {
     margin: auto;
     display: inline-block;
     padding: 0; }
+  .live-content-img-alt-text {
+    position: absolute;
+    top: -20px;
+    font-style: italic;
+    left: 0;
+    font-size: 13px; }
   .live-content-table {
     display: table;
     width: 100%;
-    min-height: 300px;
+    min-height: 185px;
     overflow: hidden;
     position: relative;
     height: 100%;
@@ -186,7 +192,11 @@ body {
     vertical-align: middle;
     font-size: 25px;
     color: #333333; }
-  @media (max-width: 767px) {
+    .live-content-text a {
+      font-size: 25px;
+      color: #333333;
+      text-decoration: underline; }
+    @media (max-width: 767px) {
 
   #app-creativecollider {
     min-height: 1px;
@@ -212,7 +222,7 @@ body {
   .live-content-text {
     font-size: 18px;
     padding: 4px; } }
-  @media (min-width: 768px) {
+    @media (min-width: 768px) {
 
   /* Start the vertical centering */
 
@@ -223,11 +233,11 @@ body {
     width: 100%;
 
     /* Must be percentage or pixels for horizontal alignment */ } }
-  @media (min-width: 992px) {
+    @media (min-width: 992px) {
 
   .cover-container {
     width: 700px; } }
-  @media (max-width: 1169px) {
+    @media (max-width: 1169px) {
 
   .live-container {
     width: 100%;

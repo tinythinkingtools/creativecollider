@@ -2,7 +2,11 @@ import React from 'react';
 import Tabletop from 'tabletop';
 import _ from 'lodash';
 import ReactPlayer from 'react-player';
+import ReactMarkdown from 'react-markdown';
+import CommonMark from 'commonmark';
+import Hammer from 'react-hammerjs';
 
+import Logo from '../helpers/Logo';
 
 const Live = React.createClass({
 	getInitialState() {
@@ -55,7 +59,7 @@ const Live = React.createClass({
 	
 	loaderApp(){
 		return (<div className="cover-container">
-							<img className="header-logo" src="/creativecollider/public/assets/img/logo.svg" />
+							<Logo />
 							<h1 className="cover-heading">Creative Collider - loading...</h1>
 						</div>);
 	},
@@ -140,8 +144,6 @@ const Live = React.createClass({
 			// let choose columns
 			let firstColumnChoose = _.sample(sheet.columnNames);
 			
-			// console.log(firstColumnChoose, secondColumnChoose);
-			
 
 			sheet.elements.forEach((obj, index) => {
 				if(!_.has(values.first, obj[firstColumnChoose]) && obj[firstColumnChoose]){
@@ -172,7 +174,7 @@ const Live = React.createClass({
 			choosenValue.push(secondValue);
 			
  		} else {
-			let columnNames = _.shuffle(sheet.columnNames);
+			let columnNames = sheet.columnNames;
 			columnNames.forEach((nameColumn, index) => {
 				values = [];
 				sheet.elements.forEach((obj, index) => {
@@ -238,35 +240,72 @@ const Live = React.createClass({
 		
 	},
 	renderType(obj){
+		const parser = new CommonMark.Parser();
+		const parsed = parser.parse(obj.value);
+		let renderObj = {
+			render: [],
+			altText: ''
+		};
+		
 		if (obj.type === 'video'){
-			return (
-				<div className="live-content-table">
+			renderObj.render.push(
+				<div key={1} className="live-content-table">
 					<ReactPlayer width="100%" height="100%" url={obj.value} controls={true} />
 				</div>
 			)
+		 return renderObj;
 		}
 		
 		if (obj.type === 'image'){
-			return (
-				<img className="live-content-img" src={obj.value} />
-			)
+			let walker = parsed.walker();
+			let event, node;
+			let notMarkdown = true;
+			let literal = '';
+			while ((event = walker.next())) {
+				node = event.node;
+				if (node.type === 'image') {
+					notMarkdown = false;
+				}
+				if (node.literal && !notMarkdown) {
+					literal = node.literal;
+				}
+			}
+			if (notMarkdown) {
+				renderObj.render.push(
+					<div key={1} className="live-content-img">
+						<img src={obj.value} />
+					</div>
+				)
+				return renderObj;
+			} else {
+				if (literal) {
+					renderObj.altText = literal;
+				}
+				renderObj.render.push(
+						<ReactMarkdown key={1} className="live-content-img" source={obj.value} />
+				)
+				return renderObj;
+			}
+			
 		}
 		
-		return (
-			<div className="live-content-table">
-				<div className="live-content-text">{obj.value}</div>
+		renderObj.render.push(
+			<div key={1} className="live-content-table">
+				<ReactMarkdown className="live-content-text" source={obj.value} />
 			</div>
 		);
+		return renderObj;
 		
 	},
 	renderSlides(){
 		
 		const renderDOM = [];
 		this.state.choosenValue.forEach((obj, index) => {
+			let renderType = this.renderType(obj);
 			renderDOM.push(
 				<div key={index} className={ "live-content " + obj.type}>
-					{this.renderType(obj)}
-					<div className="live-columnName">{obj.columnName}</div>
+					{renderType.render}
+					<div className="live-columnName">{obj.columnName} {renderType.altText ? `(${renderType.altText})` : '' }</div>
 				</div>
 			);
 		})
@@ -289,13 +328,23 @@ const Live = React.createClass({
 			</div>
 		)
 	},
+	handleSwipe(event){
+		if (event.direction === 2) {
+			this.nextSlide();
+		}
+		if (event.direction === 4 && this.state.historyCount > 1) {
+			this.moveSlides(false);
+		}
+	},
   render() {
     return (
-			<div className="site-wrapper">
-				<div className="site-wrapper-inner">
-					{ this.state.ready ? this.readyApp() : this.loaderApp() }
+			<Hammer onSwipe={this.handleSwipe} >
+				<div className="site-wrapper">
+					<div className="site-wrapper-inner">
+						{ this.state.ready ? this.readyApp() : this.loaderApp() }
+					</div>
 				</div>
-			</div>
+			</Hammer>
     )
   }
 });

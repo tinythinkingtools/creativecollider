@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import Tabletop from 'tabletop';
 
+import Logo from '../helpers/Logo';
+
 const Init = React.createClass({
 	getInitialState() {
     return {
@@ -55,7 +57,7 @@ const Init = React.createClass({
 			<div className="site-wrapper">
 				<div className="site-wrapper-inner">
 					<div className="cover-container">
-						<img className="header-logo" src="/creativecollider/public/assets/img/logo.svg" />
+						<Logo />
 						<h1 className="cover-heading">Creative Collider</h1>
 						<div className={ this.state.validateError ? "form-group align-left pt-50 has-error" : "form-group align-left pt-50" } >
 							<input 
@@ -68,7 +70,7 @@ const Init = React.createClass({
 							{ this.state.validateError ? <span className="help-block">Please check your url</span> : '' }
 						</div>
 						<div className="pd-16">
-							<Link to={ this.state.spreadsheetId ? `/creativecollider/live/${this.state.spreadsheetId}` : '/creativecollider' } className="btn btn-lg btn-success" disabled={ this.state.spreadsheetId ? false : true }>GO</Link>
+							<a href={ this.state.spreadsheetId ? `/creativecollider/live/${this.state.spreadsheetId}` : '#' } className="btn btn-lg btn-success" disabled={ this.state.spreadsheetId ? false : true }>GO</a>
 						</div>
 						<p>
 							The first step is publishing your Google Sheet (Without this, we can not access it). We will treat every column (up to 4 of them, ignoring the rest) as a separate item type. We will also ignore the first row, assuming it’s names. We will present you with random mix & matches of various types. If there is just one column - we will mix and match inside it, two items at a time. Take a look at the example spreadsheet.
