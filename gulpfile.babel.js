@@ -3,6 +3,7 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import runSequence from 'run-sequence';
+import server from 'gulp-server-livereload';
 
 var exec = require('child_process').exec;
 const plugins = gulpLoadPlugins({
@@ -82,6 +83,14 @@ gulp.task('watch', () => {
 });
 
 
+/*SERVER*/
+gulp.task('webserver', function() {
+  gulp.src('public')
+    .pipe(server({
+      livereload: false,
+      fallback: 'index.html'
+    }));
+});
 
 /*MAIN */
 
@@ -89,6 +98,7 @@ gulp.task('default', () => {
 	return runSequence(
 		'styles',
 		'browserify',
+    'webserver',
 		'watch'
 	);
 });
@@ -134,8 +144,8 @@ const deploy = (cb) => {
 gulp.task('deploy', () => {
 	return runSequence(
 		'prod-environment',
-		'styles', 
-		'browserify', 
+		'styles',
+		'browserify',
 		'clean-maps-files',
 		'minify-client',
 		deploy
