@@ -129160,15 +129160,27 @@ var Live = _react2.default.createClass({
 		var checkImage = value.match(imageRegex);
 		return checkImage ? checkImage.length : 0;
 	},
+	checkLink: function checkLink(value) {
+		var linkRegex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/i;
+		var checkLink = value.match(linkRegex);
+		return checkLink ? checkLink.length : 0;
+	},
 	checkType: function checkType(value) {
+
 		var image = this.checkImage(value);
 		if (image) {
 			return 'image';
 		}
+
 		var video = {};
 		video = this.parseVideo(value);
 		if (video) {
 			return 'video';
+		}
+
+		var link = this.checkLink(value);
+		if (link) {
+			return 'link text';
 		}
 
 		return 'text';
@@ -129185,7 +129197,28 @@ var Live = _react2.default.createClass({
 			renderObj.render.push(_react2.default.createElement(
 				'div',
 				{ key: 1, className: 'live-content-table' },
-				_react2.default.createElement(_reactPlayer2.default, { width: '100%', height: '100%', url: obj.value, controls: true })
+				_react2.default.createElement(_reactPlayer2.default, { width: '100%', height: '100%', url: obj.value, controls: true, playing: true })
+			));
+			return renderObj;
+		}
+
+		if (obj.type === 'link text') {
+			renderObj.render.push(_react2.default.createElement(
+				'div',
+				{ key: 1, className: 'live-content-table' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'live-content-text' },
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'a',
+							{ href: obj.value, target: '_blank' },
+							obj.value
+						)
+					)
+				)
 			));
 			return renderObj;
 		}
@@ -129216,7 +129249,13 @@ var Live = _react2.default.createClass({
 				if (literal) {
 					renderObj.altText = literal;
 				}
-				renderObj.render.push(_react2.default.createElement(_reactMarkdown2.default, { key: 1, className: 'live-content-img', source: obj.value }));
+				renderObj.render.push(_react2.default.createElement(_reactMarkdown2.default, { key: 1, className: 'live-content-img', source: obj.value, renderers: { Link: function Link(props) {
+							return _react2.default.createElement(
+								'a',
+								{ href: props.href, target: '_blank' },
+								props.children
+							);
+						} } }));
 				return renderObj;
 			}
 		}
@@ -129224,7 +129263,13 @@ var Live = _react2.default.createClass({
 		renderObj.render.push(_react2.default.createElement(
 			'div',
 			{ key: 1, className: 'live-content-table' },
-			_react2.default.createElement(_reactMarkdown2.default, { className: 'live-content-text', source: obj.value })
+			_react2.default.createElement(_reactMarkdown2.default, { key: 1, className: 'live-content-text', source: obj.value, renderers: { Link: function Link(props) {
+						return _react2.default.createElement(
+							'a',
+							{ href: props.href, target: '_blank' },
+							props.children
+						);
+					} } })
 		));
 		return renderObj;
 	},

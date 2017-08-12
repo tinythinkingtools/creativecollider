@@ -224,17 +224,30 @@ const Live = React.createClass({
 		let checkImage = value.match(imageRegex);
 		return checkImage ? checkImage.length : 0 ;
 	},
+
+  checkLink (value) {
+		const linkRegex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/i;
+		let checkLink = value.match(linkRegex);
+		return checkLink ? checkLink.length : 0 ;
+  },
 	
 	checkType (value) {
+
 		const image = this.checkImage(value);
 		if (image) {
 			return 'image';
 		}
+
 		let video = {};
 		video = this.parseVideo(value);
 		if (video) {
 			return 'video';
 		}
+
+    const link = this.checkLink(value);
+    if (link) {
+      return 'link text';
+    }
 		
 		return 'text';
 		
@@ -246,11 +259,24 @@ const Live = React.createClass({
 			render: [],
 			altText: ''
 		};
-		
+
 		if (obj.type === 'video'){
 			renderObj.render.push(
 				<div key={1} className="live-content-table">
-					<ReactPlayer width="100%" height="100%" url={obj.value} controls={true} />
+					<ReactPlayer width="100%" height="100%" url={obj.value} controls={true} playing={true}/>
+				</div>
+			)
+		 return renderObj;
+		}
+
+		if (obj.type === 'link text'){
+			renderObj.render.push(
+				<div key={1} className="live-content-table">
+          <div className="live-content-text">
+            <p>
+              <a href={obj.value} target="_blank">{obj.value}</a>
+            </p>
+          </div>
 				</div>
 			)
 		 return renderObj;
@@ -282,7 +308,7 @@ const Live = React.createClass({
 					renderObj.altText = literal;
 				}
 				renderObj.render.push(
-						<ReactMarkdown key={1} className="live-content-img" source={obj.value} />
+						<ReactMarkdown key={1} className="live-content-img" source={obj.value} renderers={{Link: props => <a href={props.href} target="_blank">{props.children}</a>}}/>
 				)
 				return renderObj;
 			}
@@ -291,7 +317,7 @@ const Live = React.createClass({
 		
 		renderObj.render.push(
 			<div key={1} className="live-content-table">
-				<ReactMarkdown className="live-content-text" source={obj.value} />
+				<ReactMarkdown key={1} className="live-content-text" source={obj.value} renderers={{Link: props => <a href={props.href} target="_blank">{props.children}</a>}}/>
 			</div>
 		);
 		return renderObj;

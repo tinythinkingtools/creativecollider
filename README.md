@@ -34,4 +34,17 @@ For local development:
 * install node, gulp, clone repo
 * `npm -i`;
 * `gulp`; (this starts dev server as well, but no livereload)
-* [http://localhost:8000/creativecollider](http://localhost:8000/creativecollider]
+* [http://localhost:8000/creativecollider](http://localhost:8000/creativecollider)
+
+## TODO
+
+* click on any one card rotates only it and leaves the rest as they are
+* design
+* example data sets
+* explanation / video
+
+## DONE
+
+* first prototype
+* links to render as links and open in new tabs
+* markdown links to open in new tabs
