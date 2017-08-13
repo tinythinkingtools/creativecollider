@@ -3,12 +3,58 @@ html, body {
   background-color: #F0F0F0; }
 
 body {
-  color: #333333;
+  color: #fff;
   font-size: 16px;
+  font-weight: 100;
   line-height: 1.42857143;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Slab', serif;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background: #7f00ff;
+  /* For browsers that do not support gradients */
+  background: linear-gradient(265deg, #ff9966, #7f00ff, #bc00d5, #396afc, #c6426e, #000000);
+  background-size: 1200% 1200%;
+  animation: CreativeCollider 59s ease infinite; }
+
+@keyframes CreativeCollider {
+  0% {
+    background-position: 7% 0%; }
+  50% {
+    background-position: 94% 100%; }
+  100% {
+    background-position: 7% 0%; } }
+
+h1, h2 {
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center; }
+
+.form-control:focus {
+  border: none;
+  box-shadow: none; }
+
+.help-block {
+  color: white !important;
+  text-align: center; }
+
+h4 {
+  font-style: italic;
+  text-transform: lowercase;
+  text-align: center;
+  color: #fff;
+  font-weight: 100; }
+
+.btn-cc {
+  background-color: rgba(255, 255, 255, 0.23);
+  border-color: #transparent !important;
+  border-radius: 0 !important;
+  color: #fff;
+  transition: background-color 1000ms linear; }
+  .btn-cc:hover, .btn-cc:active {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.42);
+    border-color: #transparent !important; }
 
 #app-creativecollider {
   display: table;
@@ -33,7 +79,8 @@ body {
 
 .cover-container {
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+  padding: 20px; }
 
 /* Padding for spacing */
 .inner {
@@ -42,10 +89,13 @@ body {
 .header {
   display: table-row;
   height: 1px; }
-  .header-logo {
-    height: 60px;
-    width: auto;
-    margin: 16px; }
+
+.logoContainer {
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 20px; }
+  .logoContainer svg {
+    fill: #fff; }
 
 .embed-responsive-margin {
   margin: 16px 0; }
@@ -79,6 +129,12 @@ body {
   width: 1170px;
   margin: 0 auto;
   padding: 0 16px; }
+
+.card-wrapper {
+  margin: 0;
+  padding: 5px;
+  background: transparent;
+  border: 1px dotted #fff; }
 
 .live-container {
   width: 1170px;
@@ -141,15 +197,13 @@ body {
   display: inline-block;
   min-height: 185px;
   vertical-align: top;
-  border: 5px solid #000000;
   position: relative; }
   .live-content.image {
     border: 0;
     position: relative; }
   .live-content.text {
-    background: #ffffff; }
+    background: transparent; }
   .live-content.video {
-    background: #ffffff;
     position: relative; }
     .live-content.video iframe {
       position: absolute;
@@ -159,17 +213,16 @@ body {
       width: 100%;
       height: 100%;
       border: 0; }
+  .live-content-img {
+    background-color: #fff; }
+    .live-content-img p {
+      margin: 0 !important; }
   .live-content-img img {
-    border: 5px solid #000000;
+    border: 5px solid #fff;
     height: auto;
     width: auto;
     max-height: 100%;
     max-width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     margin: auto;
     display: inline-block;
     padding: 0; }
@@ -191,12 +244,19 @@ body {
     display: table-cell;
     vertical-align: middle;
     font-size: 25px;
-    color: #333333; }
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #333333;
+    background-color: rgba(255, 255, 255, 0.88);
+    padding: 4px; }
     .live-content-text a {
       font-size: 25px;
       color: #333333;
       text-decoration: underline; }
-    @media (max-width: 767px) {
+  .live-content-content-wrapper {
+    background: transparent !important; }
+  @media (max-width: 767px) {
 
   #app-creativecollider {
     min-height: 1px;
@@ -222,8 +282,7 @@ body {
   .live-content-text {
     font-size: 18px;
     padding: 4px; } }
-    @media (min-width: 768px) {
-
+  @media (min-width: 768px) {
   /* Start the vertical centering */
 
   .site-wrapper-inner {
@@ -231,13 +290,12 @@ body {
 
   .cover-container {
     width: 100%;
-
     /* Must be percentage or pixels for horizontal alignment */ } }
-    @media (min-width: 992px) {
+  @media (min-width: 992px) {
 
   .cover-container {
     width: 700px; } }
-    @media (max-width: 1169px) {
+  @media (max-width: 1169px) {
 
   .live-container {
     width: 100%;

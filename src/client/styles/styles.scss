@@ -3,12 +3,86 @@ html, body {
   background-color: #F0F0F0;
 }
 body {
-  color: #333333;
+  color: #fff;
   font-size: 16px;
+  font-weight: 100;
   line-height: 1.42857143;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Slab', serif;
   margin: 0;
   padding: 0;
+  background: #7f00ff; /* For browsers that do not support gradients */
+  //background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+  //background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+  //background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+  //background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.76), rgba(255, 234, 0, 0.82))
+	background: linear-gradient(265deg, #ff9966, #7f00ff, #bc00d5, #396afc, #c6426e, #000000);
+	background-size: 1200% 1200%;
+
+	-webkit-animation: CreativeCollider 59s ease infinite;
+	-moz-animation: CreativeCollider 59s ease infinite;
+	-o-animation: CreativeCollider 59s ease infinite;
+	animation: CreativeCollider 59s ease infinite;
+
+	@-webkit-keyframes CreativeCollider {
+			0%{background-position:7% 0%}
+			50%{background-position:94% 100%}
+			100%{background-position:7% 0%}
+	}
+	@-moz-keyframes CreativeCollider {
+			0%{background-position:7% 0%}
+			50%{background-position:94% 100%}
+			100%{background-position:7% 0%}
+	}
+	@-o-keyframes CreativeCollider {
+			0%{background-position:7% 0%}
+			50%{background-position:94% 100%}
+			100%{background-position:7% 0%}
+	}
+	@keyframes CreativeCollider { 
+			0%{background-position:7% 0%}
+			50%{background-position:94% 100%}
+			100%{background-position:7% 0%}
+	}
+}
+
+h1, h2 {
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.form-control:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.help-block {
+  color: white !important;
+  text-align: center;
+}
+
+h4 {
+  font-style: italic;
+  text-transform: lowercase;
+  text-align: center;
+  color: #fff;
+  font-weight: 100;
+}
+
+.btn-cc {
+  background-color: rgba(255, 255, 255, 0.23);
+  border-color: #transparent !important;
+  border-radius: 0 !important;
+  color: #fff;
+  -webkit-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear;
+  &:hover, &:active {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.42);
+    border-color: #transparent !important;
+  }
 }
 
 #app-creativecollider{
@@ -39,6 +113,7 @@ body {
 .cover-container {
   margin-right: auto;
   margin-left: auto;
+  padding: 20px;
 }
 
 
@@ -69,12 +144,17 @@ body {
 .header {
   display: table-row;
   height: 1px;
-  &-logo{
-    height: 60px;
-    width: auto;
-    margin: 16px;
+}
+
+.logoContainer {
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  svg {
+    fill: #fff;
   }
 }
+
 .embed-responsive-margin{
   margin: 16px 0;
 }
@@ -107,6 +187,12 @@ padding-top: 50px;
   width: 1170px;
   margin: 0 auto;
   padding: 0 16px;
+}
+.card-wrapper {
+  margin: 0;
+  padding: 5px;
+  background: transparent;
+  border: 1px dotted #fff;
 }
 .live{
   &-container{
@@ -191,7 +277,7 @@ padding-top: 50px;
 		display: inline-block;
     min-height: 185px;
 		vertical-align: top;
-    border: 5px solid #000000;
+    //border: 5px solid #fff;
 		position: relative;
 		@media (max-width: 767px) {
 			min-height: 120px;
@@ -208,10 +294,9 @@ padding-top: 50px;
       position: relative;
     }
     &.text{
-      background: #ffffff;
+      background: transparent;
     }
     &.video{
-      background: #ffffff;
       position: relative;
 			iframe{
 				position: absolute;
@@ -223,17 +308,23 @@ padding-top: 50px;
 				border: 0;
 			}
     }
+    &-img {
+      background-color: #fff;
+      p {
+        margin: 0 !important;
+      }
+    }
     &-img img{
-      border: 5px solid #000000;
+      border: 5px solid #fff;
       height: auto;
       width: auto;
       max-height: 100%;
       max-width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+      //position: absolute;
+      //top: 0;
+      //left: 0;
+      //bottom: 0;
+      //right: 0;
       margin: auto;
       display: inline-block;
       padding: 0;
@@ -261,7 +352,12 @@ padding-top: 50px;
       display: table-cell;
       vertical-align: middle;
       font-size: 25px;
+      font-family: 'Roboto Slab', serif;
+      text-transform: uppercase;
+      font-weight: 700;
       color: #333333;
+      background-color: rgba(255, 255, 255, 0.88);
+      padding: 4px;
 			a{
 				font-size: 25px;
 				color: #333333;
@@ -271,6 +367,9 @@ padding-top: 50px;
 				font-size: 18px;
 				padding: 4px;
 			}
+    }
+    &-content-wrapper {
+      background: transparent !important;
     }
   }
 }

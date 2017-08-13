@@ -8,6 +8,8 @@ import Hammer from 'react-hammerjs';
 
 import Logo from '../helpers/Logo';
 
+let liveName = 'Createive Collider';
+
 const Live = React.createClass({
 	getInitialState() {
     return {
@@ -19,7 +21,7 @@ const Live = React.createClass({
 			historyCount: 0,
 			slideInterval: null,
 			prevSlideNumber: 0,
-			intervalTime: 4000,
+			intervalTime: 5000,
 			choosenValue: [],
 			firstValue: {
 				value: '',
@@ -38,8 +40,11 @@ const Live = React.createClass({
 			key: spreadsheetId, 
 			callback: (data, tabletop) => {
 				// console.log(data);
-				// if success => write spreadsheetId and activate GO button
-			
+        // trye to update the document title with the spreadsheet name - for easy access later
+        if(data && data.Sheet1 && data.Sheet1.tabletop) {
+          liveName = data.Sheet1.tabletop.googleSheetName;
+          document.title += ' :: '+data.Sheet1.tabletop.googleSheetName;
+        }
 				this.setState({
 					spreadsheetId,
 					ready: true,
@@ -60,7 +65,8 @@ const Live = React.createClass({
 	loaderApp(){
 		return (<div className="cover-container">
 							<Logo />
-							<h1 className="cover-heading">Creative Collider - loading...</h1>
+							<h1 className="cover-heading">Creative Collider</h1>
+              <h4>...loading...</h4>
 						</div>);
 	},
 	playPauseActions(){
@@ -299,7 +305,9 @@ const Live = React.createClass({
 			if (notMarkdown) {
 				renderObj.render.push(
 					<div key={1} className="live-content-img">
-						<img src={obj.value} />
+            <p>
+              <img src={obj.value} />
+            </p>
 					</div>
 				)
 				return renderObj;
@@ -329,9 +337,10 @@ const Live = React.createClass({
 		this.state.choosenValue.forEach((obj, index) => {
 			let renderType = this.renderType(obj);
 			renderDOM.push(
-				<div key={index} className={ "live-content " + obj.type}>
-					{renderType.render}
-					<div className="live-columnName">{obj.columnName} {renderType.altText ? `(${renderType.altText})` : '' }</div>
+				<div key={index} className={ "live-content live-content-wrapper " + obj.type}>
+          <div className="card-wrapper">
+            {renderType.render}
+          </div>
 				</div>
 			);
 		})
@@ -345,6 +354,8 @@ const Live = React.createClass({
 	readyApp(){
 		return (
 			<div className="live-container">
+				<Logo goto="/creativecollider/init" />
+        <h1>{liveName}</h1>
 				{ this.renderSlides() }
 				<div className="live-controls">
 					<div className="live-controls-item prev" onClick={this.state.historyCount > 1 ? () => this.moveSlides(false) : false } style={ this.state.historyCount > 1 ? {'opacity': 1} : {'opacity': 0, 'cursor': 'default'} }></div>

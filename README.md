@@ -40,11 +40,14 @@ For local development:
 
 * click on any one card rotates only it and leaves the rest as they are
 * design
-* example data sets
+* example data sets (and put them on the main page): human biases x technologies, 12 archetypes --> plot generator, human needs x brands... etc.
 * explanation / video
+* fork me on github on the main page
+* button to go back to main from live
 
 ## DONE
 
 * first prototype
 * links to render as links and open in new tabs
 * markdown links to open in new tabs
+* in Live update doc.title with the spreadsheet name

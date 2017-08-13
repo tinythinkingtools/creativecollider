@@ -13,8 +13,10 @@ const Home = React.createClass({
 					<div className="cover-container">
 						<Logo />
 						<h1 className="cover-heading">Creative Collider</h1>
+            <h4>&lt; mashup anything &gt;</h4>
+            <br />
 						<div className="pd-16">
-							<a href="/creativecollider/init" className="btn btn-lg btn-success">START</a>
+							<a href="/creativecollider/init" className="btn btn-lg btn-cc">START</a>
 						</div>
 					</div>
 				</div>

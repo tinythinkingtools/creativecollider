@@ -76,10 +76,9 @@ gulp.task('browserify', () => {
 /*WATCH */
 
 gulp.task('watch', () => {
-	// plugins.livereload.listen();
 	gulp.watch([`${ENV.srcClient}/**/*.js`, `${ENV.srcClient}/*.js`], ['browserify']);
 	gulp.watch([`${ENV.srcClient}/**/*.jsx`, `${ENV.srcClient}/*.jsx`], ['browserify']);
-	// gulp.watch(`${ENV.srcClient}/styles/*.scss`, ['styles']);
+	gulp.watch(`${ENV.srcClient}/styles/*.scss`, ['styles']);
 });
 
 
