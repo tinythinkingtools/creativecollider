@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Router, Link } from 'react-router';
 import Logo from '../helpers/Logo';
 
 const Home = React.createClass({
@@ -16,7 +16,7 @@ const Home = React.createClass({
             <h4>&lt; mashup anything &gt;</h4>
             <br />
 						<div className="pd-16">
-							<a href="/creativecollider/init" className="btn btn-lg btn-cc">START</a>
+							<Link to="creativecollider/init/" className="btn btn-lg btn-cc">START</Link>
 						</div>
 					</div>
 				</div>

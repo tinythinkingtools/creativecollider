@@ -128679,33 +128679,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _reactDom.render)(_react2.default.createElement(_Routes2.default, null), document.getElementById('app-creativecollider'));
 
 },{"./config/Routes":656,"react":555,"react-dom":341}],652:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Logo = _react2.default.createClass({
-  displayName: "Logo",
+  displayName: 'Logo',
   handleClick: function handleClick() {
     if (this.props.goto) {
-      document.location.href = this.props.goto;
+      _reactRouter.browserHistory.push(this.props.goto);
     }
   },
   render: function render() {
     return _react2.default.createElement(
-      "div",
-      { className: "logoContainer", onClick: this.handleClick },
+      'div',
+      { className: 'logoContainer', onClick: this.handleClick },
       _react2.default.createElement(
-        "svg",
-        { id: "Layer_1", "data-name": "Layer 1", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 89.4 66.91" },
-        _react2.default.createElement("path", { d: "M.4,63.4s30.4,2.7,38.1-29.1H28.6L45.1,5.7,61.6,34.3H51.3s5.9,30.3,38.5,29.1v9.1S58.2,75.1,45.1,43.8c0,0-10.1,29.4-44.7,28.8Z", transform: "translate(-0.4 -5.7)" })
+        'svg',
+        { id: 'Layer_1', 'data-name': 'Layer 1', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 89.4 66.91' },
+        _react2.default.createElement('path', { d: 'M.4,63.4s30.4,2.7,38.1-29.1H28.6L45.1,5.7,61.6,34.3H51.3s5.9,30.3,38.5,29.1v9.1S58.2,75.1,45.1,43.8c0,0-10.1,29.4-44.7,28.8Z', transform: 'translate(-0.4 -5.7)' })
       )
     );
   }
@@ -128713,7 +128719,7 @@ var Logo = _react2.default.createClass({
 
 exports.default = Logo;
 
-},{"react":555}],653:[function(require,module,exports){
+},{"react":555,"react-dom":341,"react-router":521}],653:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128723,6 +128729,8 @@ Object.defineProperty(exports, "__esModule", {
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
 
 var _Logo = require('../helpers/Logo');
 
@@ -128761,8 +128769,8 @@ var Home = _react2.default.createClass({
 						'div',
 						{ className: 'pd-16' },
 						_react2.default.createElement(
-							'a',
-							{ href: '/creativecollider/init', className: 'btn btn-lg btn-cc' },
+							_reactRouter.Link,
+							{ to: 'creativecollider/init/', className: 'btn btn-lg btn-cc' },
 							'START'
 						)
 					)
@@ -128774,7 +128782,7 @@ var Home = _react2.default.createClass({
 
 exports.default = Home;
 
-},{"../helpers/Logo":652,"react":555}],654:[function(require,module,exports){
+},{"../helpers/Logo":652,"react":555,"react-router":521}],654:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128885,8 +128893,8 @@ var Init = _react2.default.createClass({
 						'div',
 						{ className: 'pd-16' },
 						_react2.default.createElement(
-							'a',
-							{ href: this.state.spreadsheetId ? '/creativecollider/live/' + this.state.spreadsheetId : '#', className: 'btn btn-lg btn-cc', disabled: this.state.spreadsheetId ? false : true },
+							_reactRouter.Link,
+							{ to: this.state.spreadsheetId ? '/creativecollider/live/' + this.state.spreadsheetId : '#', className: 'btn btn-lg btn-cc', disabled: this.state.spreadsheetId ? false : true },
 							'GO'
 						)
 					),
@@ -129308,7 +129316,7 @@ var Live = _react2.default.createClass({
 
 		return _react2.default.createElement(
 			'div',
-			{ className: 'live-wrapper' },
+			{ className: 'live-wrapper', id: 'live-wrapper' },
 			renderDOM
 		);
 	},
@@ -129317,7 +129325,7 @@ var Live = _react2.default.createClass({
 
 		return _react2.default.createElement(
 			'div',
-			{ className: 'live-container' },
+			{ className: 'live-container', id: 'live-container' },
 			_react2.default.createElement(_Logo2.default, { goto: '/creativecollider/init' }),
 			_react2.default.createElement(
 				'h1',

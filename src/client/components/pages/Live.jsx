@@ -346,14 +346,14 @@ const Live = React.createClass({
 		})
 		
 		return(
-			<div className="live-wrapper">
+			<div className="live-wrapper" id="live-wrapper">
 				{renderDOM}
 			</div>
 		)
 	},
 	readyApp(){
 		return (
-			<div className="live-container">
+			<div className="live-container" id="live-container">
 				<Logo goto="/creativecollider/init" />
         <h1>{liveName}</h1>
 				{ this.renderSlides() }

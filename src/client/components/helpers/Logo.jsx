@@ -1,10 +1,11 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
+import { browserHistory } from 'react-router'
 const Logo = React.createClass({
 
   handleClick() {
     if(this.props.goto) {
-      document.location.href = this.props.goto;
+      browserHistory.push(this.props.goto)
     }
   },
   
