@@ -38,12 +38,16 @@ For local development:
 
 ## TODO
 
+* intro video for the main page (creativity is combinatorial -> let computers help you combine)
+* init page - populate with examples (from a JSON file?)
 * click on any one card rotates only it and leaves the rest as they are
 * design
-* example data sets (and put them on the main page): human biases x technologies, 12 archetypes --> plot generator, human needs x brands... etc.
+* human biases x technologies, 12 archetypes --> plot generator, human needs x brands... etc.
 * explanation / video
-* fork me on github on the main page
+* fork me on github on the main page or may be to footer for all
 * button to go back to main from live
+* redirect to 404 if table id not found
+* BUG: when navigating away from Live component doesn't get unmounted or setInterval stopped, resulting in an error
 
 ## DONE
 

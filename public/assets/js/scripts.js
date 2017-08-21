@@ -128678,7 +128678,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _reactDom.render)(_react2.default.createElement(_Routes2.default, null), document.getElementById('app-creativecollider'));
 
-},{"./config/Routes":656,"react":555,"react-dom":341}],652:[function(require,module,exports){
+},{"./config/Routes":660,"react":555,"react-dom":341}],652:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var Datasets = [{
+  name: 'Startup Ideas Generator',
+  uid: '1-pvX75c3nSdK57rKDjIguQXiWkPg-UP9MOO4iPCW9Jw',
+  picUrl: '',
+  description: 'generate trendy startup ideas',
+  learnMoreUrl: ''
+}, {
+  name: 'Archetype Story Plot Generator',
+  uid: '18iAdC3DB_nD1nw-BAuufQ6izlZktv90VJuTVA5Xtzbg',
+  picUrl: '',
+  description: 'generate story plots based on 12 archetypes and typical circumstances',
+  learnMoreUrl: ''
+}, {
+  name: 'Shakespearean Insults Generator',
+  uid: '1dQTSvRaLLVsiZdV3-0NnYcPBK18ngHckZQpZFuwzqSE',
+  picUrl: '',
+  description: 'generate three word insluts using words from Shakespear',
+  learnMoreUrl: 'http://www.pangloss.com/seidel/shake_rule.html'
+}];
+
+exports.default = Datasets;
+
+},{}],653:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128719,7 +128747,42 @@ var Logo = _react2.default.createClass({
 
 exports.default = Logo;
 
-},{"react":555,"react-dom":341,"react-router":521}],653:[function(require,module,exports){
+},{"react":555,"react-dom":341,"react-router":521}],654:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SingleDataSetCard = _react2.default.createClass({
+  displayName: 'SingleDataSetCard',
+  handleClick: function handleClick() {
+    console.log('click on me: ' + this.props.name);
+  },
+  render: function render() {
+    return _react2.default.createElement(
+      'div',
+      { className: 'SingleDataSetCard' },
+      _react2.default.createElement(
+        _reactRouter.Link,
+        { to: '/creativecollider/live/' + this.props.uid },
+        this.props.name
+      )
+    );
+  }
+});
+
+exports.default = SingleDataSetCard;
+
+},{"react":555,"react-router":521}],655:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128782,7 +128845,70 @@ var Home = _react2.default.createClass({
 
 exports.default = Home;
 
-},{"../helpers/Logo":652,"react":555,"react-router":521}],654:[function(require,module,exports){
+},{"../helpers/Logo":653,"react":555,"react-router":521}],656:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _Logo = require('../helpers/Logo');
+
+var _Logo2 = _interopRequireDefault(_Logo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Howto = _react2.default.createClass({
+	displayName: 'Howto',
+	componentDidMount: function componentDidMount() {
+		document.title = 'Creative Collider';
+	},
+	render: function render() {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'site-wrapper' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'site-wrapper-inner' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'cover-container' },
+					_react2.default.createElement(_Logo2.default, { goto: '/creativecollider/init' }),
+					_react2.default.createElement(
+						'h1',
+						{ className: 'cover-heading' },
+						'How to Collide?'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'p',
+						null,
+						'blah blah blah here is some howto.'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'pd-16' },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/creativecollider/init/', className: 'btn btn-lg btn-cc' },
+							'GOT IT'
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+exports.default = Howto;
+
+},{"../helpers/Logo":653,"react":555,"react-router":521}],657:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128799,9 +128925,17 @@ var _tabletop = require('tabletop');
 
 var _tabletop2 = _interopRequireDefault(_tabletop);
 
+var _Datasets = require('../data/Datasets');
+
+var _Datasets2 = _interopRequireDefault(_Datasets);
+
 var _Logo = require('../helpers/Logo');
 
 var _Logo2 = _interopRequireDefault(_Logo);
+
+var _SingleDataSetCard = require('../helpers/SingleDataSetCard');
+
+var _SingleDataSetCard2 = _interopRequireDefault(_SingleDataSetCard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -128863,46 +128997,61 @@ var Init = _react2.default.createClass({
 			{ className: 'site-wrapper' },
 			_react2.default.createElement(
 				'div',
-				{ className: 'site-wrapper-inner' },
+				{ className: 'cover-container' },
+				_react2.default.createElement(_Logo2.default, { goto: '/creativecollider' }),
+				_react2.default.createElement(
+					'h1',
+					{ className: 'cover-heading' },
+					'Creative Collider'
+				),
+				_react2.default.createElement(
+					'p',
+					null,
+					'Please paste a link to your ',
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/creativecollider/howto' },
+						'published google spreadsheet'
+					),
+					', or use one of the sets below.'
+				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'cover-container' },
-					_react2.default.createElement(_Logo2.default, { goto: '/creativecollider' }),
+					{ className: this.state.validateError ? "form-group align-left pt-25 has-error" : "form-group align-left pt-25" },
+					_react2.default.createElement('input', {
+						type: 'text',
+						value: this.state.spreadsheetsURL,
+						name: 'spreadsheetsURL',
+						onChange: this.validateURL,
+						placeholder: 'Paste a link to your published google spreadsheet here...',
+						className: 'form-control' }),
+					this.state.validateError ? _react2.default.createElement(
+						'span',
+						{ className: 'help-block' },
+						'Please check your url'
+					) : ''
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'pd-16' },
 					_react2.default.createElement(
-						'h1',
-						{ className: 'cover-heading' },
-						'Creative Collider'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: this.state.validateError ? "form-group align-left pt-50 has-error" : "form-group align-left pt-50" },
-						_react2.default.createElement('input', {
-							type: 'text',
-							value: this.state.spreadsheetsURL,
-							name: 'spreadsheetsURL',
-							onChange: this.validateURL,
-							placeholder: 'Paste a link to your published google spreadsheet here...',
-							className: 'form-control' }),
-						this.state.validateError ? _react2.default.createElement(
-							'span',
-							{ className: 'help-block' },
-							'Please check your url'
-						) : ''
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'pd-16' },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: this.state.spreadsheetId ? '/creativecollider/live/' + this.state.spreadsheetId : '#', className: 'btn btn-lg btn-cc', disabled: this.state.spreadsheetId ? false : true },
-							'GO'
-						)
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'The first step is publishing your Google Sheet (Without this, we can not access it). We will treat every column (up to 4 of them, ignoring the rest) as a separate item type. We will also ignore the first row, assuming it\u2019s names. We will present you with random mix & matches of various types. If there is just one column - we will mix and match inside it, two items at a time. Take a look at the example spreadsheet.'
+						_reactRouter.Link,
+						{ to: this.state.spreadsheetId ? '/creativecollider/live/' + this.state.spreadsheetId : '#', className: 'btn btn-lg btn-cc', disabled: this.state.spreadsheetId ? false : true },
+						'GO'
 					)
+				),
+				_react2.default.createElement('hr', null),
+				_react2.default.createElement(
+					'h2',
+					null,
+					'Example data sets:'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'example-data-sets-container' },
+					_Datasets2.default.map(function (d, i) {
+						return _react2.default.createElement(_SingleDataSetCard2.default, { key: d.uid, name: d.name, uid: d.uid, picUrl: d.picUrl });
+					})
 				)
 			)
 		);
@@ -128911,7 +129060,7 @@ var Init = _react2.default.createClass({
 
 exports.default = Init;
 
-},{"../helpers/Logo":652,"react":555,"react-router":521,"tabletop":624}],655:[function(require,module,exports){
+},{"../data/Datasets":652,"../helpers/Logo":653,"../helpers/SingleDataSetCard":654,"react":555,"react-router":521,"tabletop":624}],658:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -128987,7 +129136,7 @@ var Live = _react2.default.createClass({
 			key: spreadsheetId,
 			callback: function callback(data, tabletop) {
 				// console.log(data);
-				// trye to update the document title with the spreadsheet name - for easy access later
+				// try to update the document title with the spreadsheet name - for easy access later
 				if (data && data.Sheet1 && data.Sheet1.tabletop) {
 					liveName = data.Sheet1.tabletop.googleSheetName;
 					document.title += ' :: ' + data.Sheet1.tabletop.googleSheetName;
@@ -129371,7 +129520,70 @@ var Live = _react2.default.createClass({
 
 exports.default = Live;
 
-},{"../helpers/Logo":652,"commonmark":112,"lodash":281,"react":555,"react-hammerjs":468,"react-markdown":478,"react-player":479,"tabletop":624}],656:[function(require,module,exports){
+},{"../helpers/Logo":653,"commonmark":112,"lodash":281,"react":555,"react-hammerjs":468,"react-markdown":478,"react-player":479,"tabletop":624}],659:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _Logo = require('../helpers/Logo');
+
+var _Logo2 = _interopRequireDefault(_Logo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotFound = _react2.default.createClass({
+	displayName: 'NotFound',
+	componentDidMount: function componentDidMount() {
+		document.title = 'Creative Collider';
+	},
+	render: function render() {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'site-wrapper' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'site-wrapper-inner' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'cover-container' },
+					_react2.default.createElement(_Logo2.default, { goto: '/creativecollider' }),
+					_react2.default.createElement(
+						'h1',
+						{ className: 'cover-heading' },
+						'404'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Sorry, we couldn\'t find this page...'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'pd-16' },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/creativecollider', className: 'btn btn-lg btn-cc' },
+							'Back to the start...'
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+exports.default = NotFound;
+
+},{"../helpers/Logo":653,"react":555,"react-router":521}],660:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -129396,6 +129608,14 @@ var _Live = require('../components/pages/Live');
 
 var _Live2 = _interopRequireDefault(_Live);
 
+var _Howto = require('../components/pages/Howto');
+
+var _Howto2 = _interopRequireDefault(_Howto);
+
+var _NotFound = require('../components/pages/NotFound');
+
+var _NotFound2 = _interopRequireDefault(_NotFound);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var r = function r() {
@@ -129407,13 +129627,15 @@ var r = function r() {
       { path: 'creativecollider' },
       _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: 'init', component: _Init2.default }),
-      _react2.default.createElement(_reactRouter.Route, { path: 'live/:spreadsheetId', component: _Live2.default })
+      _react2.default.createElement(_reactRouter.Route, { path: 'howto', component: _Howto2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: 'live/:spreadsheetId', component: _Live2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '*', exact: true, component: _NotFound2.default })
     )
   );
 };
 
 exports.default = r;
 
-},{"../components/pages/Home":653,"../components/pages/Init":654,"../components/pages/Live":655,"react":555,"react-router":521}]},{},[651])
+},{"../components/pages/Home":655,"../components/pages/Howto":656,"../components/pages/Init":657,"../components/pages/Live":658,"../components/pages/NotFound":659,"react":555,"react-router":521}]},{},[651])
 
 //# sourceMappingURL=scripts.js.map

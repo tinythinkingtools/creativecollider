@@ -30,13 +30,22 @@ h1, h2 {
   text-transform: uppercase;
   text-align: center; }
 
-.form-control:focus {
+.form-control, .form-control:focus {
   border: none;
   box-shadow: none; }
 
 .help-block {
   color: white !important;
   text-align: center; }
+
+a {
+  color: #fff;
+  border-bottom: 1px dotted #fff;
+  text-decoration: none; }
+  a:active, a:hover {
+    color: #fff;
+    border-bottom: solid 1px #fff;
+    text-decoration: none; }
 
 h4 {
   font-style: italic;
@@ -54,7 +63,7 @@ h4 {
   .btn-cc:hover, .btn-cc:active {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.42);
-    border-color: #transparent !important; }
+    border-color: transparent !important; }
 
 #app-creativecollider {
   display: table;
@@ -105,6 +114,9 @@ h4 {
 
 .pt-50 {
   padding-top: 50px; }
+
+.pt-25 {
+  padding-top: 25px; }
 
 .pd-16 {
   padding: 16px; }
@@ -299,6 +311,7 @@ h4 {
 
   .live-container {
     width: 100%;
-    padding: 0; } }
+    padding: 0;
+    padding-top: 20px; } }
 
 /*# sourceMappingURL=styles.css.map */

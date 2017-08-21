@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import Tabletop from 'tabletop';
 
+import Datasets from '../data/Datasets';
 import Logo from '../helpers/Logo';
+import SingleDataSetCard from '../helpers/SingleDataSetCard';
 
 const Init = React.createClass({
 	getInitialState() {
@@ -55,11 +57,13 @@ const Init = React.createClass({
   render() {
     return (
 			<div className="site-wrapper">
-				<div className="site-wrapper-inner">
 					<div className="cover-container">
 						<Logo goto="/creativecollider" />
 						<h1 className="cover-heading">Creative Collider</h1>
-						<div className={ this.state.validateError ? "form-group align-left pt-50 has-error" : "form-group align-left pt-50" } >
+						<p>
+              Please paste a link to your <Link to='/creativecollider/howto'>published google spreadsheet</Link>, or use one of the sets below.
+						</p>
+						<div className={ this.state.validateError ? "form-group align-left pt-25 has-error" : "form-group align-left pt-25" } >
 							<input 
 								type="text"
 								value={this.state.spreadsheetsURL} 
@@ -72,11 +76,14 @@ const Init = React.createClass({
 						<div className="pd-16">
 							<Link to={ this.state.spreadsheetId ? `/creativecollider/live/${this.state.spreadsheetId}` : '#' } className="btn btn-lg btn-cc" disabled={ this.state.spreadsheetId ? false : true }>GO</Link>
 						</div>
-						<p>
-							The first step is publishing your Google Sheet (Without this, we can not access it). We will treat every column (up to 4 of them, ignoring the rest) as a separate item type. We will also ignore the first row, assuming it’s names. We will present you with random mix & matches of various types. If there is just one column - we will mix and match inside it, two items at a time. Take a look at the example spreadsheet.
-						</p>
+            <hr />
+            <h2>Example data sets:</h2>
+            <div className="example-data-sets-container">
+              {Datasets.map(function(d,i) {
+                return <SingleDataSetCard key={d.uid} name={d.name} uid={d.uid} picUrl={d.picUrl} />
+              })}
+            </div>
 					</div>
-				</div>
 			</div>
     )
   }

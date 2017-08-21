@@ -40,7 +40,7 @@ const Live = React.createClass({
 			key: spreadsheetId, 
 			callback: (data, tabletop) => {
 				// console.log(data);
-        // trye to update the document title with the spreadsheet name - for easy access later
+        // try to update the document title with the spreadsheet name - for easy access later
         if(data && data.Sheet1 && data.Sheet1.tabletop) {
           liveName = data.Sheet1.tabletop.googleSheetName;
           document.title += ' :: '+data.Sheet1.tabletop.googleSheetName;
