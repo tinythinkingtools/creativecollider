@@ -46,6 +46,9 @@ a {
     color: #fff;
     border-bottom: solid 1px #fff;
     text-decoration: none; }
+  a:visited {
+    color: #fff;
+    border-bottom: 1px dotted #fff; }
 
 h4 {
   font-style: italic;

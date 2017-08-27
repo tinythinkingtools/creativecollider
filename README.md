@@ -39,18 +39,19 @@ For local development:
 ## TODO
 
 * intro video for the main page (creativity is combinatorial -> let computers help you combine)
-* init page - populate with examples (from a JSON file?)
 * click on any one card rotates only it and leaves the rest as they are
-* design
-* human biases x technologies, 12 archetypes --> plot generator, human needs x brands... etc.
-* explanation / video
 * fork me on github on the main page or may be to footer for all
-* button to go back to main from live
 * redirect to 404 if table id not found
 * BUG: when navigating away from Live component doesn't get unmounted or setInterval stopped, resulting in an error
+* BUG: fix layout on mobile and various responsive scenarios
+* Enhancement: How-to page -> make nicer (with screenshots)
 
 ## DONE
 
+* examples: human biases x technologies, 12 archetypes --> plot generator, human needs x brands... etc.
+* init page - populate with examples (from a JSON file?)
+* design / first pass
+* button to go back to main from live
 * first prototype
 * links to render as links and open in new tabs
 * markdown links to open in new tabs
