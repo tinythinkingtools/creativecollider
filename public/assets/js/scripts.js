@@ -128849,7 +128849,7 @@ exports.default = Home;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _react = require('react');
@@ -128865,45 +128865,89 @@ var _Logo2 = _interopRequireDefault(_Logo);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Howto = _react2.default.createClass({
-	displayName: 'Howto',
-	componentDidMount: function componentDidMount() {
-		document.title = 'Creative Collider';
-	},
-	render: function render() {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'site-wrapper' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'site-wrapper-inner' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'cover-container' },
-					_react2.default.createElement(_Logo2.default, { goto: '/creativecollider/init' }),
-					_react2.default.createElement(
-						'h1',
-						{ className: 'cover-heading' },
-						'How to Collide?'
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						'p',
-						null,
-						'blah blah blah here is some howto.'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'pd-16' },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/creativecollider/init/', className: 'btn btn-lg btn-cc' },
-							'GOT IT'
-						)
-					)
-				)
-			)
-		);
-	}
+  displayName: 'Howto',
+  componentDidMount: function componentDidMount() {
+    document.title = 'Creative Collider';
+  },
+  render: function render() {
+    return _react2.default.createElement(
+      'div',
+      { className: 'site-wrapper' },
+      _react2.default.createElement(
+        'div',
+        { className: 'site-wrapper-inner' },
+        _react2.default.createElement(
+          'div',
+          { className: 'cover-container' },
+          _react2.default.createElement(_Logo2.default, { goto: '/creativecollider/init' }),
+          _react2.default.createElement(
+            'h1',
+            { className: 'cover-heading' },
+            'How to Collide?'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'div',
+            { className: 'cc-description-list-container' },
+            _react2.default.createElement(
+              'ol',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                'Create a new google spreadsheet.'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Populate it (alone or with friends) with one or more columns of data that you want to mash up. Use the first row to name the columns. ',
+                _react2.default.createElement(
+                  'a',
+                  { href: 'https://docs.google.com/spreadsheets/d/1-pvX75c3nSdK57rKDjIguQXiWkPg-UP9MOO4iPCW9Jw/edit?usp=sharing', target: '_blank' },
+                  'Here'
+                ),
+                ' is an example.'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Publish the spreadsheet to the web by going to File -> Publish to the web. Click publish and then copy the link.'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Go to Creative Collider, hit start and then paste the link into the input field.'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'View a "slideshow" of your data, mashed up in random ways. If you used only one column in your spreadsheet then the system will show random combinations of different items in that column. If between 2 and 4 columns were used, then a random element will be taken from each column every time a "slide" changes. Columns numnber 5 and beyond are ignored.'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Data can be text, links, images (links to .jpg, .png, .gif files are rendered as pics automatically) or markdown (detected automatically).'
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Watch the items mash up (or move ahead manually by clicking the arrows at the bottom). When the creative spark hits you, close the page and go do something awesome!'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'pd-16' },
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/creativecollider/init/', className: 'btn btn-lg btn-cc' },
+              'GOT IT'
+            )
+          )
+        )
+      )
+    );
+  }
 });
 
 exports.default = Howto;
